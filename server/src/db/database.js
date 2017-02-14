@@ -1,4 +1,4 @@
-import config from "../../knexfile";
+import config from "../../../knexfile";
 import Knex from "knex";
 import Bookshelf from "bookshelf";
 

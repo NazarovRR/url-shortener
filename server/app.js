@@ -5,7 +5,7 @@ import path from "path";
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); 
-app.use(express.static(path.resolve("src/public")));
+app.use(express.static(path.resolve("build/src/public")));
 
 app.use('/', urls);
 app.use('/',function(err,req,res){

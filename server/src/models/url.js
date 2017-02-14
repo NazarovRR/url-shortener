@@ -18,7 +18,12 @@ const Url = Bookshelf.Model.extend({
 			//third arg - collection of symbols to use
 			const hashids = new Hashids("umbrella", 4, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
 			const id = hashids.encode(model.get("id"));
-			model.save({encoded:id});
+			let newAttrs = {encoded:id};
+			if(model.get("full_url").indexOf("http") === -1){
+				//handles short manual urls, like google.com to be at least http://google.com to redirect
+				newAttrs.full_url = "http://" + model.get("full_url");
+			}
+			model.save(newAttrs);
 		}
 	}
 });
