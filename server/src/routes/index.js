@@ -2,7 +2,7 @@ import Url from "../models/url";
 import express from "express";
 import path from "path";
 const router = express.Router();
-const base = process.env.NODE_ENV === "production"? "insertaddresshere" : "localhost:3000/";
+const base = process.env.NODE_ENV === "production"? "http://lowcost-env.kwyuhfwi9s.us-west-2.elasticbeanstalk.com/" : "localhost:3000/";
 router.get("/",function (req,res,next) {
 	res.sendFile(path.join(path.resolve("build/src/public"), '/views/index.html'));
 });
