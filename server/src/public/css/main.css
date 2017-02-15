@@ -5,15 +5,19 @@
 html,
 body {
 	height: 100%;
-	background-color: #f86919;
-  letter-spacing: 1.6px;
+	background: #f86919;
+	background: -webkit-linear-gradient(left top, #f86919, #ffd600);
+	background: -o-linear-gradient(bottom right, #f86919, #ffd600);
+	background: -moz-linear-gradient(bottom right, #f86919, #ffd600);
+	background: linear-gradient(to bottom right, #f86919, #ffd600);
+	letter-spacing: 1.6px;
 }
 body {
 	margin: 0;
 	padding: 0;
 	color: #fff;
 	text-align: center;
-	font-family: 'Titillium Web', sans-serif;
+	font-family: 'Droid Serif', sans-serif;
 	box-sizing:border-box;
 }
 
@@ -38,6 +42,9 @@ body {
 .container {
 	height: 80%;
 	display: flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;	
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
@@ -53,6 +60,11 @@ body {
 	height: 100%;
 }
 
+.txtfield-short {
+	width: 30%;
+	height: 100%;
+}
+
 #link {
 	display: none;
 	padding-top: 15px;
@@ -65,7 +77,11 @@ body {
 }
 
 @media (min-width: 768px) {
-  .txtfield {
-    width: 450px;
-  }
+	.txtfield {
+		width: 450px;
+	}
+
+	.txtfield-short {
+		width: 250px;
+	}
 }
