@@ -3,4 +3,5 @@ Before you start, make sure to use a db/user/password from configuration (or cha
 Steps to start: 
 - npm i
 - knex migrate:latest
-- npm start
+- npm run build
+- npm run startdev

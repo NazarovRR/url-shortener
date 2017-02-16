@@ -2,7 +2,14 @@ import Url from "../models/url";
 import express from "express";
 import path from "path";
 const router = express.Router();
-const base = process.env.NODE_ENV === "production"? "http://lowcost-env.kwyuhfwi9s.us-west-2.elasticbeanstalk.com/" : "localhost:3000/";
+let base;
+if(process.env.FORWARD){
+	base = process.env.FORWARD;
+} else if(process.env.BASE_URL) {
+	base = process.env.BASE_URL;
+} else {
+	base = "localhost:8081/";
+}
 router.get("/",function (req,res,next) {
 	res.sendFile(path.join(path.resolve("build/src/public"), '/views/index.html'));
 });

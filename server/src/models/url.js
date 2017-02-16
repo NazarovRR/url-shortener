@@ -43,7 +43,7 @@ const Url = Bookshelf.Model.extend({
 					//no hash found, new hash is unique
 					resolve();
 				}
-			});
+			})
 		});
 	},
 	generateNewHash:function(id){

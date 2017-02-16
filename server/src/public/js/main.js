@@ -1,4 +1,4 @@
-$('.btn-submit').on('click', function(){
+function submit(){
 
 	function validate(){
 		return new Promise(function(resolve, reject){
@@ -40,7 +40,7 @@ $('.btn-submit').on('click', function(){
 			data: data,
 			success: function(data){
 				// display the shortened URL to the user that is returned by the server
-				const resultHTML = '<a class="result" href=http://' + data.url + '>'
+				const resultHTML = '<a class="result" href=' + data.url + '>'
 						+ data.url + '</a>';
 				$('#link').html(resultHTML);
 				$('#link').hide().fadeIn('slow');
@@ -62,4 +62,14 @@ $('.btn-submit').on('click', function(){
 		$('#link').hide().fadeIn('slow');
 	});
 
+}
+
+$('.input').keypress(function (e) {
+	if (e.which == 13) {
+		submit();
+	}
+});
+
+$('.btn-submit').on('click', function(){
+	submit();
 });
