@@ -13,22 +13,26 @@ if(process.env.FORWARD){
 
 router.post("/",function(req,res,next){
 	const Model = Url.forge();
-	if(req.body.encoded){
-		Model.checkHashUniqueness(req.body.encoded).then(function(){
-			//unique is true
-			createNewSet(req.body);
-		}).catch(function(){
-			//hash is already taken
-			return res.status(400).json({message:"This short url is already in use"});
-		});
-	} else {
-		checkFullUrl();
-	}
+	Model.validate(req.body).then(function(validatedParams){
+		if(validatedParams.encoded){
+			Model.checkHashUniqueness(validatedParams.encoded).then(function(){
+				//unique is true
+				createNewSet(validatedParams);
+			}).catch(function(){
+				//hash is already taken
+				return res.status(400).json({message:"This short url is already in use"});
+			});
+		} else {
+			checkFullUrl(validatedParams);
+		}
+	}).catch(function(err){
+		res.status(400).send({message:err});
+	});
 
-	function checkFullUrl(){
-		Model.where("full_url",req.body.full_url).fetch().then(function(models){
+	function checkFullUrl(params){
+		Model.where("full_url",params.full_url).fetch().then(function(models){
 			if(!models){
-				createNewSet(req.body);
+				createNewSet(params);
 			} else {
 				if(models.length && models.length > 1){
 					res.send({url:base+models[0].get("encoded")});

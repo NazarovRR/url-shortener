@@ -67,6 +67,42 @@ const Url = Bookshelf.Model.extend({
 				self.getEncoded(model,cb);
 			},40);
 		}
+	},
+	validate: function(params) {
+		return new Promise(function(resolve, reject){
+			let data = {};
+			if(!params.full_url || checkForWhiteSpaces(params.full_url) || !isUrlValid(params.full_url)) {
+				reject("Please enter a valid URL.");
+			}
+			data.full_url = params.full_url;
+			if(params.encoded) {
+				if(params.encoded.length < 3 || params.encoded.length > 10){
+					reject("short url must be between 3 and 10 symbols");
+				}
+				if(checkForWhiteSpaces(params.encoded) || !checkAlphaNumeric(params.encoded)){
+					reject("short url can contain only letters and numbers");
+				}
+				data.encoded = params.encoded;
+			}
+			resolve(data);
+		});
+
+		function checkForWhiteSpaces(value){
+			const whiteSpaces = /\s/;
+			const result = whiteSpaces.test(value);
+			return result;
+		}
+
+		function isUrlValid(textval) {
+			const urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+()&%$#=~_-]+))*$/;
+			return urlregex.test(textval);
+		}
+
+		function checkAlphaNumeric(value){
+			const regExAN = /^[a-z0-9]+$/i;
+			return regExAN.test(value);
+
+		}
 	}
 });
 
